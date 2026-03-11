@@ -1,3 +1,6 @@
+;;;; Copyright (c) 2024-2026 Parkian Company LLC. All rights reserved.
+;;;; SPDX-License-Identifier: BSD-3-Clause
+
 ;;;; ordering.lisp - Topological ordering and GHOSTDAG for cl-dag-consensus
 ;;;; SPDX-License-Identifier: MIT
 

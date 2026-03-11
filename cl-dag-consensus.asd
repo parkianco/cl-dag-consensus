@@ -4,7 +4,7 @@
 (defsystem #:cl-dag-consensus
   :name "cl-dag-consensus"
   :version "0.1.0"
-  :author "CLPIC Contributors"
+  :author "Parkian Company LLC"
   :license "MIT"
   :description "DAG-based consensus protocol implementing GHOSTDAG for directed acyclic graph blockchains"
   :long-description "A standalone Common Lisp implementation of DAG-based consensus with:
