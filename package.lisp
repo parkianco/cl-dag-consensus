@@ -27,6 +27,7 @@ heaviest branch selection, merge block validation, and finality computation.")
    ;; =========================================================================
    #:zero-hash
    #:hash-equal-p
+   #:hash-less-p
    #:copy-hash
    #:hash-to-hex
    #:hex-to-hash
