@@ -45,4 +45,6 @@
     ((:file "test-dag"))))
 
   :perform (test-op (op c)
-             (symbol-call :cl-dag-consensus.test :run-tests)))
+             (let ((result (symbol-call :cl-dag-consensus.test :run-tests)))
+               (unless result
+                 (error "Tests failed")))))
