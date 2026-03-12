@@ -136,6 +136,7 @@ heaviest branch selection, merge block validation, and finality computation.")
    #:dag-consensus-vertices
    #:dag-consensus-tips
    #:dag-consensus-finalized
+   #:dag-consensus-finality-window
    #:dag-consensus-k-param
 
    ;; DAG Construction
