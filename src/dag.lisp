@@ -65,7 +65,7 @@
 
 (defun make-dag-lock ()
   "Create a lock for thread safety. Returns NIL for single-threaded use."
-  #+sbcl (sb-thread:make-mutex :name "dag-consensus-lock")
+  #+sbcl (sb-thread:make-recursive-lock "dag-consensus-lock")
   #-sbcl nil)
 
 (defmacro with-dag-lock ((dag) &body body)
@@ -74,7 +74,7 @@
     `(let ((,lock-var (dag-consensus-lock ,dag)))
        #+sbcl
        (if ,lock-var
-           (sb-thread:with-mutex (,lock-var)
+           (sb-thread:with-recursive-lock (,lock-var)
              ,@body)
            (progn ,@body))
        #-sbcl

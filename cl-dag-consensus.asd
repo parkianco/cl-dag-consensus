@@ -1,7 +1,10 @@
+;; Copyright (c) 2024-2026 Parkian Company LLC. All rights reserved.
+;; SPDX-License-Identifier: BSD-3-Clause
+
 ;;;; cl-dag-consensus.asd - DAG-based consensus protocol for Common Lisp
 ;;;; SPDX-License-Identifier: MIT
 
-(defsystem #:cl-dag-consensus
+(asdf:defsystem #:cl-dag-consensus
   :name "cl-dag-consensus"
   :version "0.1.0"
   :author "Parkian Company LLC"
@@ -29,9 +32,9 @@
      (:file "ordering")
      (:file "consensus"))))
 
-  :in-order-to ((test-op (test-op #:cl-dag-consensus/test))))
+  :in-order-to ((asdf:test-op (test-op #:cl-dag-consensus/test))))
 
-(defsystem #:cl-dag-consensus/test
+(asdf:defsystem #:cl-dag-consensus/test
   :name "cl-dag-consensus/test"
   :version "0.1.0"
   :license "MIT"
@@ -44,7 +47,7 @@
     :components
     ((:file "test-dag"))))
 
-  :perform (test-op (op c)
-             (let ((result (symbol-call :cl-dag-consensus.test :run-tests)))
+  :perform (asdf:test-op (op c)
+             (let ((result (uiop:symbol-call :cl-dag-consensus.test :run-tests)))
                (unless result
                  (error "Tests failed")))))

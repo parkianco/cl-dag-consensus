@@ -69,7 +69,7 @@
                  :height height
                  :timestamp timestamp
                  :work work
-                 :cumulative-work work
+                 :cumulative-work 0
                  :parents (copy-list parents)
                  :children nil
                  :data data
