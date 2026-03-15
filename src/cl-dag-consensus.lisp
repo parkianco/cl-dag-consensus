@@ -193,3 +193,38 @@
 (defun print-vertex-info (&rest args) "Auto-generated substantive API for print-vertex-info" (declare (ignore args)) t)
 (defun print-tip-selection (&rest args) "Auto-generated substantive API for print-tip-selection" (declare (ignore args)) t)
 (defun run-tests (&rest args) "Auto-generated substantive API for run-tests" (declare (ignore args)) t)
+
+
+;;; ============================================================================
+;;; Standard Toolkit for cl-dag-consensus
+;;; ============================================================================
+
+(defmacro with-dag-consensus-timing (&body body)
+  "Executes BODY and logs the execution time specific to cl-dag-consensus."
+  (let ((start (gensym))
+        (end (gensym)))
+    `(let ((,start (get-internal-real-time)))
+       (multiple-value-prog1
+           (progn ,@body)
+         (let ((,end (get-internal-real-time)))
+           (format t "~&[cl-dag-consensus] Execution time: ~A ms~%"
+                   (/ (* (- ,end ,start) 1000.0) internal-time-units-per-second)))))))
+
+(defun dag-consensus-batch-process (items processor-fn)
+  "Applies PROCESSOR-FN to each item in ITEMS, handling errors resiliently.
+Returns (values processed-results error-alist)."
+  (let ((results nil)
+        (errors nil))
+    (dolist (item items)
+      (handler-case
+          (push (funcall processor-fn item) results)
+        (error (e)
+          (push (cons item e) errors))))
+    (values (nreverse results) (nreverse errors))))
+
+(defun dag-consensus-health-check ()
+  "Performs a basic health check for the cl-dag-consensus module."
+  (let ((ctx (initialize-dag-consensus)))
+    (if (validate-dag-consensus ctx)
+        :healthy
+        :degraded)))

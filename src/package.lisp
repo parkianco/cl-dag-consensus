@@ -13,7 +13,9 @@ Provides directed acyclic graph block structure with multiple parents,
 heaviest branch selection, merge block validation, and finality computation.")
 
   (:export
-   ;; =========================================================================
+   #:with-dag-consensus-timing
+   #:dag-consensus-batch-process
+   #:dag-consensus-health-check;; =========================================================================
    ;; Constants
    ;; =========================================================================
    #:+max-parents+
@@ -282,4 +284,7 @@ heaviest branch selection, merge block validation, and finality computation.")
 
 (defpackage #:cl-dag-consensus.test
   (:use #:cl #:cl-dag-consensus)
-  (:export #:run-tests))
+  (:export
+   #:with-dag-consensus-timing
+   #:dag-consensus-batch-process
+   #:dag-consensus-health-check#:run-tests))
