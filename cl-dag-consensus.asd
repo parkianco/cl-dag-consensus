@@ -23,14 +23,10 @@
   :components
   ((:file "package")
    (:module "src"
-    :depends-on ("cl-dag-consensus")
-    :serial t
-    :components
-    ((:file "util")
-     (:file "vertex")
-     (:file "dag")
-     (:file "ordering")
-     (:file "consensus"))))
+                :components ((:file "package")
+                             (:file "conditions" :depends-on ("package"))
+                             (:file "types" :depends-on ("package"))
+                             (:file "cl-dag-consensus" :depends-on ("package" "conditions" "types"))))))
 
   :in-order-to ((asdf:test-op (test-op #:cl-dag-consensus/test))))
 
