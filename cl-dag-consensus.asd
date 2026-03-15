@@ -1,49 +1,40 @@
 ;; Copyright (c) 2024-2026 Parkian Company LLC. All rights reserved.
-;; SPDX-License-Identifier: BSD-3-Clause
-
-;;;; cl-dag-consensus.asd - DAG-based consensus protocol for Common Lisp
-;;;; SPDX-License-Identifier: MIT
+;; SPDX-License-Identifier: Apache-2.0
 
 (asdf:defsystem #:cl-dag-consensus
-  :name "cl-dag-consensus"
-  :version "0.1.0"
+  :description "DAG-based consensus protocol implementing GHOSTDAG for directed acyclic graph blockchains"
   :author "Park Ian Co"
   :license "Apache-2.0"
-  :description "DAG-based consensus protocol implementing GHOSTDAG for directed acyclic graph blockchains"
-  :long-description "A standalone Common Lisp implementation of DAG-based consensus with:
-- Directed acyclic graph block structure with multiple parents
-- GHOSTDAG protocol for vertex coloring and ordering
-- Heaviest branch selection for tip determination
-- Merge block creation and validation
-- Topological ordering and finality computation
-- Transaction conflict resolution"
-
-  :depends-on ()  ; Pure Common Lisp - no external dependencies
-
+  :version "0.1.0"
+  :serial t
   :components
-  ((:file "package")
-   (:module "src"
-                :components ((:file "package")
-                             (:file "conditions" :depends-on ("package"))
-                             (:file "types" :depends-on ("package"))
-                             (:file "cl-dag-consensus" :depends-on ("package" "conditions" "types"))))))
-
+  ((:module "src"
+            :serial t
+            :components
+            ((:file "package")
+             (:file "conditions")
+             (:file "types")
+             (:file "util")
+             (:file "vertex")
+             (:file "dag")
+             (:file "ordering")
+             (:file "consensus")
+             (:file "cl-dag-consensus"))))
   :in-order-to ((asdf:test-op (test-op #:cl-dag-consensus/test))))
 
 (asdf:defsystem #:cl-dag-consensus/test
-  :name "cl-dag-consensus"
-  :version "0.1.0"
-  :license "Apache-2.0"
   :description "Tests for cl-dag-consensus"
-
+  :author "Park Ian Co"
+  :license "Apache-2.0"
   :depends-on (#:cl-dag-consensus)
-
+  :serial t
   :components
   ((:module "test"
+    :serial t
     :components
-    ((:file "test-dag"))))
-
-  :perform (asdf:test-op (op c)
+    ((:file "package")
+     (:file "test"))))
+  :perform (asdf:test-op (o c)
              (let ((result (uiop:symbol-call :cl-dag-consensus.test :run-tests)))
                (unless result
                  (error "Tests failed")))))
