@@ -7,8 +7,8 @@
 (asdf:defsystem #:cl-dag-consensus
   :name "cl-dag-consensus"
   :version "0.1.0"
-  :author "Parkian Company LLC"
-  :license "MIT"
+  :author "Park Ian Co"
+  :license "Apache-2.0"
   :description "DAG-based consensus protocol implementing GHOSTDAG for directed acyclic graph blockchains"
   :long-description "A standalone Common Lisp implementation of DAG-based consensus with:
 - Directed acyclic graph block structure with multiple parents
@@ -23,7 +23,7 @@
   :components
   ((:file "package")
    (:module "src"
-    :depends-on ("package")
+    :depends-on ("cl-dag-consensus")
     :serial t
     :components
     ((:file "util")
@@ -35,9 +35,9 @@
   :in-order-to ((asdf:test-op (test-op #:cl-dag-consensus/test))))
 
 (asdf:defsystem #:cl-dag-consensus/test
-  :name "cl-dag-consensus/test"
+  :name "cl-dag-consensus"
   :version "0.1.0"
-  :license "MIT"
+  :license "Apache-2.0"
   :description "Tests for cl-dag-consensus"
 
   :depends-on (#:cl-dag-consensus)
